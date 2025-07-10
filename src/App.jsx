@@ -20,9 +20,11 @@ const PottdFeedbackApp = () => {
   const [loading, setLoading] = useState(false);
   const [fetchingData, setFetchingData] = useState(false);
 
-  // API endpoints
-  const API_BASE_URL = 'https://d9ymirkmrc.execute-api.eu-west-2.amazonaws.com/prod';
-  const API_KEY = 'fg2jFUkB3Q4lvrLwlGLmja5uoTE5422HaQ9nFRgE';
+  // // API endpoints
+  // const API_BASE_URL = 'https://d9ymirkmrc.execute-api.eu-west-2.amazonaws.com/prod';
+  // const API_KEY = 'fg2jFUkB3Q4lvrLwlGLmja5uoTE5422HaQ9nFRgE';
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
   const endpoints = {
     submit: `${API_BASE_URL}/submit`,
     fetch: `${API_BASE_URL}/fetch`,
