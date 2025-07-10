@@ -1,41 +1,64 @@
-name: Deploy React App to S3
+name: SonarQube + Build + Deploy to S3
 
 on:
   push:
     branches: [main]
 
 jobs:
-  deploy:
+  sonarqube_build_deploy:
+    name: Analyze, Build, and Deploy
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
 
     - name: Install dependencies
       run: npm install
 
+    - name: Run tests with coverage
+      run: npm test -- --coverage
+
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v5
+      with:
+        args: >
+          -Dsonar.projectKey=my-project12_myreact-app
+          -Dsonar.organization=my-project12
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.sources=src
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     - name: Inject environment variables
       run: |
         echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" >> .env
         echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" >> .env
 
-    - name: Build the app
+    - name: Build the frontend
       run: npm run build
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: frontend-build
+        path: dist/
 
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@v0.5.1
       with:
         args: --delete
       env:
-        
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{secrets.AWS_REGION}}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
         SOURCE_DIR: 'dist'
