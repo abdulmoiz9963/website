@@ -20,20 +20,30 @@ const PottdFeedbackApp = () => {
   const [loading, setLoading] = useState(false);
   const [fetchingData, setFetchingData] = useState(false);
 
-  // API endpoints
-  const API_BASE_URL = 'https://eqhr0kbi5a.execute-api.eu-west-2.amazonaws.com/prod';
-  // const API_KEY = 'fg2jFUkB3Q4lvrLwlGLmja5uoTE5422HaQ9nFRgE';
+//   // API endpoints
+//   // const API_BASE_URL = 'https://eqhr0kbi5a.execute-api.eu-west-2.amazonaws.com/prod';
+//   // // const API_KEY = 'fg2jFUkB3Q4lvrLwlGLmja5uoTE5422HaQ9nFRgE';
 
   
-const API_KEY = import.meta.env.VITE_API_KEY;
-  const endpoints = {
-    submit: `${API_BASE_URL}/submit`,
-    fetch: `${API_BASE_URL}/fetch`,
-    admin: `${API_BASE_URL}/admin`,
-    update: `${API_BASE_URL}/put`,
-    delete: `${API_BASE_URL}/delete`
-  };
+// const API_KEY = import.meta.env.VITE_API_KEY;
+//   const endpoints = {
+//     submit: `${API_BASE_URL}/submit`,
+//     fetch: `${API_BASE_URL}/fetch`,
+//     admin: `${API_BASE_URL}/admin`,
+//     update: `${API_BASE_URL}/put`,
+//     delete: `${API_BASE_URL}/delete`
+//   };
+const API_BASE_URL = "https://3s6zwbi5a6.execute-api.eu-west-2.amazonaws.com/prod";
+const API_KEY = "WTQBfSRYq6JAT8SgkUfQ8LUnQkF8P8P2VSk8cEg3";  // The provided API Key
 
+// Define API endpoints
+const endpoints = {
+  submit: `${API_BASE_URL}/submit`,
+  fetch: `${API_BASE_URL}/fetch`,
+  admin: `${API_BASE_URL}/admin`,
+  update: `${API_BASE_URL}/put`,
+  delete: `${API_BASE_URL}/delete`
+};
   const categories = ['Product Quality', 'User Experience', 'Customer Service', 'Shipping', 'Website', 'General'];
 
   // Notification system
