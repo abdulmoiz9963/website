@@ -30,7 +30,7 @@ const PottdFeedbackApp = () => {
 //     admin: `${API_BASE_URL}/admin`,
 //     update: `${API_BASE_URL}/put`,
 //     delete: `${API_BASE_URL}/delete`
-  };
+//   };
 const API_BASE_URL = "https://3s6zwbi5a6.execute-api.eu-west-2.amazonaws.com/prod";
 const API_KEY = "WTQBfSRYq6JAT8SgkUfQ8LUnQkF8P8P2VSk8cEg3";  // The provided API Key
 
