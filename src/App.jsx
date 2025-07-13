@@ -31,8 +31,8 @@ const PottdFeedbackApp = () => {
 //     update: `${API_BASE_URL}/put`,
 //     delete: `${API_BASE_URL}/delete`
 //   };
-const API_BASE_URL = "https://3s6zwbi5a6.execute-api.eu-west-2.amazonaws.com/prod";
-const API_KEY = "WTQBfSRYq6JAT8SgkUfQ8LUnQkF8P8P2VSk8cEg3";  // The provided API Key
+const API_BASE_URL = "https://cmqnjr6sma.execute-api.eu-west-2.amazonaws.com/prod";
+const API_KEY = "5N7ML3TLts62UMLxJ1YeB4hTj7GOLMm4apx6guAg";  // The provided API Key
 
 // Define API endpoints
 const endpoints = {
