@@ -22,26 +22,26 @@ const PottdFeedbackApp = () => {
 
  
 
-// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-// const API_KEY = import.meta.env.VITE_API_KEY;
-//   const endpoints = {
-//     submit: `${API_BASE_URL}/submit`,
-//     fetch: `${API_BASE_URL}/fetch`,
-//     admin: `${API_BASE_URL}/admin`,
-//     update: `${API_BASE_URL}/put`,
-//     delete: `${API_BASE_URL}/delete`
-//   };
-const API_BASE_URL = "https://cmqnjr6sma.execute-api.eu-west-2.amazonaws.com/prod";
-const API_KEY = "5N7ML3TLts62UMLxJ1YeB4hTj7GOLMm4apx6guAg";  
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
+  const endpoints = {
+    submit: `${API_BASE_URL}/submit`,
+    fetch: `${API_BASE_URL}/fetch`,
+    admin: `${API_BASE_URL}/admin`,
+    update: `${API_BASE_URL}/put`,
+    delete: `${API_BASE_URL}/delete`
+  };
+// const API_BASE_URL = "https://cmqnjr6sma.execute-api.eu-west-2.amazonaws.com/prod";
+// const API_KEY = "5N7ML3TLts62UMLxJ1YeB4hTj7GOLMm4apx6guAg";  
 
-// Define API endpoints
-const endpoints = {
-  submit: `${API_BASE_URL}/submit`,
-  fetch: `${API_BASE_URL}/fetch`,
-  admin: `${API_BASE_URL}/admin`,
-  update: `${API_BASE_URL}/put`,
-  delete: `${API_BASE_URL}/delete`
-};
+// // Define API endpoints
+// const endpoints = {
+//   submit: `${API_BASE_URL}/submit`,
+//   fetch: `${API_BASE_URL}/fetch`,
+//   admin: `${API_BASE_URL}/admin`,
+//   update: `${API_BASE_URL}/put`,
+//   delete: `${API_BASE_URL}/delete`
+// };
   const categories = ['Product Quality', 'User Experience', 'Customer Service', 'Shipping', 'Website', 'General'];
 
   // Notification system
