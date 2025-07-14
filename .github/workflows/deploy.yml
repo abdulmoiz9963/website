@@ -23,14 +23,14 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v5
-      with:
-        args: >
-          -Dsonar.projectKey=my-project12_myreact-app
-          -Dsonar.organization=my-project12
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.sources=src
+    # - name: SonarQube Scan
+    #   uses: SonarSource/sonarqube-scan-action@v5
+    #   with:
+    #     args: >
+    #       -Dsonar.projectKey=my-project12_myreact-app
+    #       -Dsonar.organization=my-project12
+    #       -Dsonar.host.url=https://sonarcloud.io
+    #       -Dsonar.sources=src
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
