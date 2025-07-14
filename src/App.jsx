@@ -161,36 +161,61 @@ const API_KEY = import.meta.env.VITE_API_KEY;
   };
 
   // Handle admin actions (approve, reject, flag)
-  const handleAdminAction = async (feedbackId, action) => {
-    try {
-      const response = await fetch(endpoints.admin, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': API_KEY
-        },
-        body: JSON.stringify({
-          id: feedbackId,
-          action: action
-        }),
-      });
+  const handleAdminAction = async (feedbackItem, action) => {
+  try {
+    console.log("feedbackItem passed to handleAdminAction:", feedbackItem);
 
-      if (response.ok) {
-        const actionMessages = {
-          approve: 'Feedback approved successfully!',
-          reject: 'Feedback rejected successfully!',
-          flag: 'Feedback flagged for review!'
-        };
-        showNotification('success', actionMessages[action]);
-        await fetchFeedback(); // Refresh the data
-      } else {
-        showNotification('error', `Failed to ${action} feedback`);
-      }
-    } catch (error) {
-      console.error(`Error ${action}ing feedback:`, error);
-      showNotification('error', 'Error connecting to server');
+    const statusMap = {
+      approve: "approved",
+      reject: "rejected",
+      flag: "flagged",
+      delete: "delete"
+    };
+
+    const status = statusMap[action];
+
+    // Correct key names based on your DynamoDB schema
+    const user_id = feedbackItem.userId;
+    const createdAt = feedbackItem.createdAt;
+
+    if (!user_id || !createdAt || !status) {
+      console.error("Invalid payload:", { user_id, createdAt, status });
+      showNotification('error', 'Invalid feedback item or action');
+      return;
     }
-  };
+
+    const response = await fetch(endpoints.admin, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': API_KEY
+      },
+      body: JSON.stringify({
+        user_id,
+        createdAt,
+        status
+      }),
+    });
+
+    if (response.ok) {
+      const actionMessages = {
+        approve: 'Feedback approved successfully!',
+        reject: 'Feedback rejected successfully!',
+        flag: 'Feedback flagged for review!',
+        delete: 'Feedback deleted successfully!'
+      };
+      showNotification('success', actionMessages[action]);
+      await fetchFeedback();
+    } else {
+      const error = await response.json();
+      showNotification('error', error.message || `Failed to ${action} feedback`);
+    }
+  } catch (error) {
+    console.error(`Error ${action}ing feedback:`, error);
+    showNotification('error', 'Error connecting to server');
+  }
+};
+
 
   // Handle image upload
   const handleImageUpload = (e) => {
@@ -617,21 +642,21 @@ const API_KEY = import.meta.env.VITE_API_KEY;
                           {/* Admin Actions */}
                           <div className="flex items-center space-x-1 mr-2">
                             <button
-                              onClick={() => handleAdminAction(item.id, 'approve')}
+                              onClick={() => handleAdminAction(item, 'approve')}
                               className="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors"
                               title="Approve"
                             >
                               <Check className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleAdminAction(item.id, 'reject')}
+                              onClick={() => handleAdminAction(item, 'reject')}
                               className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
                               title="Reject"
                             >
                               <Ban className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleAdminAction(item.id, 'flag')}
+                              onClick={() => handleAdminAction(item, 'flag')}
                               className="p-2 text-orange-600 hover:bg-orange-100 rounded-lg transition-colors"
                               title="Flag for Review"
                             >
