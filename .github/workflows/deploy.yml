@@ -27,10 +27,10 @@ jobs:
       uses: SonarSource/sonarqube-scan-action@v5
       with:
         args: >
-          -Dsonar.projectKey=my-project12_myreact-app
-          -Dsonar.organization=my-project12
+          -Dsonar.organization=pottd-project \
+          -Dsonar.projectKey=pottd-project_myreact-app \
+          -Dsonar.sources=. \
           -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.sources=src
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
